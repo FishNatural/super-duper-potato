@@ -1,22 +1,19 @@
 import telebot
 
 bot = telebot.TeleBot('987690305:AAHO9BRC7Rv1WdDHn9i65uoF506CykYPNYI')
-keyboard1 = telebot.types.ReplyKeyboardMarkup(True)
-keyboard1.row('Привет', 'Пока', 'я тебя люблю')
-
-@bot.message_handler(commands=['start'])
-def start_message(message):
-    bot.send_message(message.chat.id, 'Привет, ты написал мне /start', reply_markup=keyboard1)
 
 @bot.message_handler(content_types=['text'])
-def send_text(message):
-    if message.text.lower() == 'привет':
-        bot.send_message(message.chat.id, 'Привет, человек')
-    elif message.text.lower() == 'я тебя люблю':
-        bot.send_sticker(message.chat.id, 'CAACAgIAAxkBAAMkX0ubylz9Sh-TmWWfkB9NOWgkh1cAAgQGAALQhvsKHll6Xzz0_nsbBA')
-    elif message.text.lower() == 'пока':
-        bot.send_message(message.chat.id, 'Прощай, человек')
+def handle_text_messages(message):
+    if message.text == "Привет":
+        bot.send_message(message.from_user.id, "Привет")
+    elif message.text == "Кто ты?":
+        bot.send_message(message.from_user.id, "Я тестовый чатбот для учебного примера.")
+    elif message.text == "Как тебя зовут?":
+        bot.send_message(message.from_user.id, "Меня зовут MyFirstTestBot.")
+    elif message.text == "Что ты умеешь?":
+        bot.send_message(message.from_user.id,
+                         "Я умею отвечать на несколько простых вопросов - кто я, как меня зовут и что я умею делать.")
+    else:
+        bot.send_message(message.from_user.id, "Я тебя не понимаю. Напиши что-то другое.")
 
-
-
-bot.polling()
+bot.polling(none_stop=True, interval=0)
