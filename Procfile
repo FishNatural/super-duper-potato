@@ -1,1 +1,1 @@
-worker: python bot.py -p $PORT
+web: python bot.py -b 0.0.0.0:$PORT
